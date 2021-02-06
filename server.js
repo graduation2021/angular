@@ -5,6 +5,6 @@ const app = express();
 app.use(express.static('./dist/front-graduation'));
 
 app.get('/*', (req, res) =>
-     res.sendFile('index.html', {root: 'dist/front-graduation/src/'}),);
+     res.sendFile(__dirname + '/index.html'),);
 
 app.listen(process.env.PORT || 8080);
