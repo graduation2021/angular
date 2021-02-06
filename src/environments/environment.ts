@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const baseURL = `http://localhost:8080`;
+export const baseURL = `https://graduation2021.herokuapp.com/`;
 
 /*
  * For easier debugging in development mode, you can import the following file
