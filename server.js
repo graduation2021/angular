@@ -2,9 +2,9 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-app.use(express.static('./dist/front-graduation'));
+app.use(express.static('./dist/FrontGraduation'));
 
 app.get('/*', (req, res) =>
-     res.sendFile(path.resolve(app.get('appPath') + '/index.html')));
+     res.sendFile('index.html', {root: 'dist/FrontGraduation/'}));
 
 app.listen(process.env.PORT || 8080);
