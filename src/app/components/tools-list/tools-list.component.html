@@ -1,0 +1,54 @@
+<div class="d-flex" style="width: 100%">
+  <div id="filters" class="mr-auto">
+
+    <h4>Kategorie</h4>
+    <ul *ngFor="let category of categories">
+      <li (click)="addFilter(categoryToFilter, category); getFilteredTools();"
+          *ngIf="!categoryToFilter.includes(category)">{{category}}</li>
+      <li (click)="addFilter(categoryToFilter, category); getFilteredTools();"
+          *ngIf="categoryToFilter.includes(category)" class="clicked">{{category}}</li>
+    </ul>
+    <h4>Platformy</h4>
+    <ul *ngFor="let platform of platforms">
+      <li (click)="addFilter(platformToFilter, platform) ; getFilteredTools();"
+          *ngIf="!platformToFilter.includes(platform)">{{platform}}</li>
+      <li (click)="addFilter(platformToFilter, platform) ; getFilteredTools();"
+          *ngIf="platformToFilter.includes(platform)" class="clicked">{{platform}}</li>
+    </ul>
+    <br>
+    <p id="keyword">Słowo kluczowe</p>
+    <form [formGroup]="keywordForm" (ngSubmit)="getFilteredTools()">
+      <input style="width: 100%" type="text" formControlName="keyword">
+    </form>
+  </div>
+
+
+  <div id="tools" class="mr-auto" style="">
+    <div class="input-group mb-3" style="width: 48%; margin-left: 20px">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Sortuj</label>
+      </div>
+      <select (change)="onChange($event.target.value)" class="custom-select" id="inputGroupSelect01">
+        <option value="numberOfLikesDesc">Liczba polubień malejąco</option>
+        <option value="numberOfLikesAsc">Liczba polubień rosnąco</option>
+        <option value="alphabeticDesc">Alfabetycznie Z - A</option>
+        <option value="alphabeticAsc">Alfabetycznie A -Z</option>
+      </select>
+    </div>
+    <div *ngFor="let tool of tools" class="card d-inline-flex">
+      <button *ngIf="tool.isLikedByUser" class="likeButton liked" (click)="deleteLike(tool.id)">
+        Lubię {{tool.numberOfLikes}}</button>
+      <button *ngIf="!tool.isLikedByUser" class="likeButton" (click)="addLike(tool.id)">
+        Lubię {{tool.numberOfLikes}}</button>
+      <a routerLink="/tool/{{tool.id}}">
+        <img id="logo-image" class="card-img-top" src="{{tool.iconURL}}" alt="Card image cap">
+        <div class="card-body">
+          <p class="title">{{tool.name}}</p>
+          <p class="card-text">{{tool.shortDescription}}</p>
+        </div>
+      </a>
+    </div>
+    </div>
+  <div *ngIf="!authService.isAuthenticated()"><p style="margin-top: 82px; text-align: center">Aby polubić narzędzia oraz dodawać posty/komentarze musisz się zalogować!</p></div>
+</div>
+

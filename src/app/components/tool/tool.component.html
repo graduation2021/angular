@@ -1,0 +1,70 @@
+<div *ngIf="ready" class="jumbotron" xmlns="http://www.w3.org/1999/html">
+  <div class="auth" *ngIf="authService.hasRole('ROLE_EDITOR') || authService.hasRole('ROLE_ADMIN')">
+    <p>
+      <button type="button" class="btn btn-outline-success" routerLink="/editTool/{{tool.id}}"><i
+        class="bi bi-pencil-fill"></i> Edytuj
+      </button>
+    </p>
+    <p (click)="deleteTool()">
+      <button type="button" class="btn btn-outline-danger"><i class="bi bi-trash-fill"></i> Usuń</button>
+    </p>
+  </div>
+  <h3 class="d-inline-flex">{{tool.name}}</h3>
+  <img src="{{tool.iconURL}}" class="d-inline-flex" style="height: 150px; max-width:300px; float: right;">
+  <p>{{tool.categories}}</p>
+  <p>{{tool.platforms}}</p>
+  <a href="{{tool.directLinkURL}}"><p>{{tool.directLinkURL}}</p></a>
+  <p>{{tool.fullDescription}}</p>
+</div>
+<div class="jumbotron" *ngFor="let post of posts; let i = index">
+  <div style="width: 100%">
+    <span class="mr-auto">Użytkownik: "{{post.username}}" napisał:</span>
+    <span class="ml-auto" style="float: right">
+      <button *ngIf="authService.getUsername() == post.username || authService.hasRole('ROLE_ADMIN')" (click)="editPostClick(post)" type="button" class="btn btn-outline-success"><i class="bi bi-pencil-fill">Edytuj</i></button>
+      <button *ngIf="authService.getUsername() == post.username || authService.hasRole('ROLE_ADMIN')" type="button" class="btn btn-outline-danger"><i  (click)="deletePost(post.id)" class="bi bi-trash-fill">Usuń</i></button>
+      {{post.createdDate}}
+    </span>
+  </div>
+  <div *ngIf="post.bool">
+    <form [formGroup]="editPostForm" (ngSubmit)="updatePost(post.id)">
+      <input type="text" class="form-control" formControlName="content" [(ngModel)]="post.content">
+      <button class="btn btn-primary" type="submit">Edytuj</button>
+    </form>
+  </div>
+  <span *ngIf="!post.bool">{{post.content}}</span>
+  <div *ngFor="let comment of comments.get(i)">
+    <hr class="solid">
+    <br>
+    <div>
+      <span>Użytkownik: "{{comment.username}}" skomentował:</span>
+      <span class="ml-auto" style="float: right">
+        <button *ngIf="authService.getUsername() == comment.username || authService.hasRole('ROLE_ADMIN')" type="button" class="btn btn-outline-success"><i (click)="editCommentClick(comment)" class="bi bi-pencil-fill">Edytuj</i></button>
+        <button *ngIf="authService.getUsername() == comment.username || authService.hasRole('ROLE_ADMIN')" type="button" class="btn btn-outline-danger"><i (click)="deleteComment(comment.id)" class="bi bi-trash-fill">Usuń</i></button>
+        {{comment.createdDate}}
+      </span>
+    </div>
+    <div *ngIf="comment.bool">
+      <form [formGroup]="editCommentForm" (ngSubmit)="updateComment(comment.id)">
+        <input type="text" class="form-control" formControlName="content" [(ngModel)]="comment.content">
+        <button class="btn btn-primary" type="submit">Edytuj</button>
+      </form>
+    </div>
+    <br>
+    <span *ngIf="!comment.bool">{{comment.content}}</span>
+  </div>
+  <form method="post" [formGroup]="addCommentForm" (ngSubmit)="addComment(post.id)">
+    <hr class="solid">
+    <div class="form-group">
+      <label>Napisz komentarz</label>
+      <input class="form-control" type="text" formControlName="content">
+    </div>
+    <button type="submit" class="btn btn-primary">Skomentuj</button>
+  </form>
+</div>
+<form method="post" [formGroup]="addPostForm" (ngSubmit)="addPost()">
+  <div class="form-group">
+    <label>Napisz post</label>
+    <textarea class="form-control" type="text" formControlName="content" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Wyślij</button>
+</form>

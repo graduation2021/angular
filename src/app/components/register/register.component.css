@@ -1,0 +1,22 @@
+body {
+  padding: 0;
+  background-color: #17a2b8;
+}
+#login .container #login-row #login-column #login-box {
+  margin: auto;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+
+#login{
+  margin-top: 10px;
+}
+.text-center{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.form-group{
+  padding-right: 20px;
+  padding-left: 20px;
+}

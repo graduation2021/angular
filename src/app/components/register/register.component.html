@@ -1,0 +1,42 @@
+<div id="login">
+  <div class="container">
+    <div id="login-row" class="row justify-content-center align-items-center">
+      <div id="login-column" class="col-md-6">
+        <div id="login-box" class="col-md-12">
+          <form id="login-form" class="form" action="" method="post" [formGroup]="registerForm"
+                (ngSubmit)="registerProcess()">
+            <h3 class="text-center text-info">Zarejestruj</h3>
+            <span *ngIf="registerError" style="color: red">{{registerError}}</span>
+            <div class="form-group">
+              <div style="color: red" *ngIf="usernameError">{{usernameError}}</div>
+              <label class="text-info">Nazwa użytkownika:</label><br>
+              <input type="text" formControlName="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <div style="color: red" *ngIf="emailError">{{emailError}}</div>
+              <label class="text-info">E-mail:</label><br>
+              <input type="email" formControlName="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <div style="color: red; white-space: pre-wrap;" *ngIf="passwordError">{{passwordError}}</div>
+              <label class="text-info">Hasło:</label><br>
+              <input type="password" formControlName="password" id="password" class="form-control">
+            </div>
+            <div class="form-group">
+              <div style="color: red" *ngIf="captchaError">{{captchaError}}</div>
+              <ngx-recaptcha2
+                siteKey="6LdZu0IaAAAAAL4qKNP1FMteUOuOEDC7pA0bu1gT"
+                formControlName="recaptcha">
+              </ngx-recaptcha2>
+              <br>
+              <input type="submit" name="submit" class="btn btn-info btn-md" value="Zarejestruj">
+              <div style="float: right">
+                <a href="#" routerLink="/login" class="btn btn-info btn-md">Zaloguj się</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

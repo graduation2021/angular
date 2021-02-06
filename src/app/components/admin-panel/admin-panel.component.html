@@ -1,0 +1,23 @@
+<div *ngIf="users && roles">
+  <h3>Panel administratora</h3>
+  <form [formGroup]="addRoleForm" (ngSubmit)="addRoleProcess()">
+    <label>Wybierz użytkownika</label>
+    <ng-multiselect-dropdown
+      [placeholder]="'Wybierz użytkownika'"
+      [settings]="dropdownSettings1"
+      [data]="usersDropdown"
+      [formControl]="addRoleForm.controls.user"
+    >
+    </ng-multiselect-dropdown>
+    <label>Przypisz mu role</label>
+    <ng-multiselect-dropdown
+      [placeholder]="'Przypisz mu role'"
+      [settings]="dropdownSettings2"
+      [data]="rolesDropdown"
+      [formControl]="addRoleForm.controls.role"
+    >
+    </ng-multiselect-dropdown>
+    <button type="submit" class="btn btn-primary"><i class="bi bi-plus-square"></i> Dodaj role</button>
+    <button type="button" (click)="deleteUser()" class="btn btn-danger"><i class="bi bi-trash-fill"></i> Usuń użytkownika</button>
+  </form>
+</div>

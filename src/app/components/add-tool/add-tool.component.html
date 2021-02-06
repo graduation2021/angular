@@ -1,0 +1,40 @@
+<form *ngIf="category && platform" [formGroup]="addToolForm" (ngSubmit)="addToolProcess()">
+  <h3>Dodaj narzędzie</h3>
+  <div class="form-group">
+    <label>Tytuł
+    <input class="form-control" type="text" formControlName="name">
+    </label><br>
+    <label>Bezpośredni link
+      <input class="form-control" type="text" formControlName="directLinkURL">
+    </label><br>
+    <label>Link do ikony
+      <input class="form-control" type="text" formControlName="iconURL">
+    </label><br>
+    <label>Krótki opis
+      <textarea class="form-control" type="text" formControlName="shortDescription" rows="2"></textarea>
+    </label><br>
+    <label>Pełny opis
+      <textarea class="form-control" type="text" formControlName="fullDescription" rows="3"></textarea>
+    </label>
+    <label>Kategorie</label>
+    <ng-multiselect-dropdown
+      [placeholder]="'Wybierz'"
+      [settings]="dropdownSettings"
+      [data]="categoriesDropdown"
+      [formControl]="addToolForm.controls.categories"
+    >
+    </ng-multiselect-dropdown>
+    <label>Platformy</label>
+    <ng-multiselect-dropdown
+      [placeholder]="'Wybierz'"
+      [settings]="dropdownSettings"
+      [data]="platformsDropdown"
+      [formControl]="addToolForm.controls.platforms"
+    >
+    </ng-multiselect-dropdown>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Dodaj narzędzie</button>
+</form>
+
+
