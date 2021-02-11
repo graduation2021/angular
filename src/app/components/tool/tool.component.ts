@@ -72,7 +72,6 @@ export class ToolComponent implements OnInit {
   }
 
   deleteTool() {
-    console.log(this.id);
     return this.apiService.deleteTool(this.id).subscribe(result => {
       this.router.navigate(['tools'], {skipLocationChange: true});
     });

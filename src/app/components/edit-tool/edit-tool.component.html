@@ -2,21 +2,27 @@
   <h3>Edytuj narzędzie</h3>
   <div class="form-group">
     <label>Tytuł
+      <div *ngIf="nameError" style="color: red">{{nameError}}</div>
       <input class="form-control" type="text" formControlName="name" [(ngModel)]="tool.name" >
     </label><br>
     <label>Bezpośredni link
+      <div *ngIf="directLinkError" style="color: red">{{directLinkError}}</div>
       <input class="form-control" type="text" formControlName="directLinkURL" [(ngModel)]="tool.directLinkURL">
     </label><br>
     <label>Link do ikony
+      <div *ngIf="iconUrlError" style="color: red">{{iconUrlError}}</div>
       <input class="form-control" type="text" formControlName="iconURL" [(ngModel)]="tool.iconURL">
     </label><br>
     <label>Krótki opis
+      <div *ngIf="shortDescriptionError" style="color: red">{{shortDescriptionError}}</div>
       <textarea class="form-control" type="text" formControlName="shortDescription" rows="2" [(ngModel)]="tool.shortDescription"></textarea>
     </label><br>
     <label>Pełny opis
+      <div *ngIf="fullDescriptionError" style="color: red">{{fullDescriptionError}}</div>
       <textarea class="form-control" type="text" formControlName="fullDescription" rows="3" [(ngModel)]="tool.fullDescription"></textarea>
     </label>
     <label>Kategorie</label>
+    <div *ngIf="selectError" style="color: red">{{selectError}}</div>
     <ng-multiselect-dropdown
       [placeholder]="'Wybierz'"
       [settings]="dropdownSettings"
@@ -25,6 +31,7 @@
     >
     </ng-multiselect-dropdown>
     <label>Platformy</label>
+    <div *ngIf="selectError" style="color: red">{{selectError}}</div>
     <ng-multiselect-dropdown
       [placeholder]="'Wybierz'"
       [settings]="dropdownSettings"
